@@ -1,0 +1,30 @@
+---
+
+titre : Gestion des transactions
+sidebar_position : 5
+---
+
+# Gestion des transactions
+
+Interroger les données de transaction associées aux plates-formes.
+
+## `GET /api/v1/transactions/incoming/{platformSlug}`
+
+Liste les transactions entrantes pour la plateforme spécifiée.
+
+### Paramètres de la requête
+
+* `page` : Numéro de page
+* `size` : Taille de la page
+* `sort` : `createdDate,desc`
+
+### Exemple
+
+```bash
+curl -X GET « https://api.nourama.com/api/v1/transactions/incoming/my-platform?size=10&page=0 » \N
+     -H « Authorization : Bearer <token> »
+```
+
+## `GET /api/v1/transactions/approved/{platformSlug}`
+
+Liste les transactions approuvées pour la plateforme.

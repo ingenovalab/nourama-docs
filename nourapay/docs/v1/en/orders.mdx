@@ -1,0 +1,50 @@
+---
+
+title: Gestion des ordres de paiement
+sidebar_position: 4
+---
+
+# Gestion des ordres de paiement
+
+Gérez et interagissez avec les ordres de paiement, y compris les ordres standards et les flux basés sur des liens de paiement (paylink).
+
+## `POST /api/v1/order`
+
+Crée un ordre de paiement.
+
+### Exemple de Requête
+
+```json
+{
+  "amount": 5000,
+  "currency": "USD",
+  "reference": "ORD-1001",
+  "notifyBy": "EMAIL",
+  "successURL": "https://app.com/success",
+  "failureURL": "https://app.com/failure"
+}
+```
+
+### Exemple de Réponse
+
+```json
+{
+  "message": "Ordre créé",
+  "body": {
+    "paymentId": "abc123",
+    "url": "https://pay.com/abc123"
+  }
+}
+```
+
+## `POST /api/v1/order/paylink`
+
+Crée un ordre de paiement par lien avec des articles optionnels.
+
+## `POST /api/v1/order/confirm`
+
+Confirme le paiement en utilisant l'identifiant de paiement et l'identifiant de transaction.
+
+## `GET /api/v1/order/by-slug/{slug}`
+
+Récupère les détails d'un ordre de paiement public à l'aide de son slug.

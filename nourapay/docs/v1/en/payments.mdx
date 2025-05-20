@@ -1,0 +1,107 @@
+---
+title: Gestion des Paiements
+sidebar_position: 6
+---
+
+# Gestion des Paiements
+
+Cette API gère les sessions de paiement, leur préparation, et l'exécution des transactions.
+
+## `POST /api/v1/payment/prepare`
+
+Prépare une session de paiement pour une commande spécifique.
+
+### Corps de la Requête
+
+```json
+{
+  "orderSlug": "commande-123",
+  "paymentMethod": "ORANGE_MONEY",
+  "phoneNumber": {
+    "indicator": "+225",
+    "telephone": "0701020304"
+  },
+  "amount": 5000,
+  "paymentInformation": {
+    "firstname": "Jean",
+    "lastname": "Dupont",
+    "email": "jean.dupont@example.com",
+    "address": "Abidjan, Côte d'Ivoire",
+    "metaData": "Client régulier"
+  }
+}
+```
+
+### Réponse
+
+```json
+{
+  "message": "OK",
+  "body": {
+    "otpTimeout": 300,
+    "otpManualGenerationRequired": false,
+    "otpManualUSSDCode": "*123#",
+    "sessionId": "session-xyz",
+    "sessionTimeout": 600
+  }
+}
+```
+
+---
+
+## `POST /api/v1/payment/execute/{real}`
+
+Exécute un paiement avec le code OTP reçu par l'utilisateur.
+
+### Paramètre de chemin
+
+* `real`: booléen indiquant si le paiement est réel (`true`) ou en mode test (`false`).
+
+### Corps de la Requête
+
+```json
+{
+  "orderSlug": "commande-123",
+  "otp": "123456"
+}
+```
+
+### Réponse
+
+```json
+{
+  "message": "OK",
+  "body": {
+    "transactionId": "txn-456",
+    "successRedirectURL": "https://marchand.com/succes",
+    "failureRedirectURL": "https://marchand.com/echec",
+    "status": "SUCCESS",
+    "remainingRetries": 0
+  }
+}
+```
+
+---
+
+## `GET /api/v1/payment/session/by-slug/{orderSlug}`
+
+Récupère les informations d'une session de paiement en utilisant le slug de la commande.
+
+### Paramètre de chemin
+
+* `orderSlug`: identifiant unique de la commande
+
+### Réponse
+
+```json
+{
+  "message": "OK",
+  "body": {
+    "otpTimeout": 300,
+    "otpManualGenerationRequired": true,
+    "otpManualUSSDCode": "*123#",
+    "sessionId": "session-abc",
+    "sessionTimeout": 600
+  }
+}
+```

@@ -1,0 +1,74 @@
+---
+title: Gestion du Compte
+description: Points de terminaison pour gérer les comptes utilisateurs
+next: authentication
+prev: null
+sidebar_position: 2
+---
+
+# API de Gestion du Compte
+
+Points de terminaison pour gérer les comptes utilisateurs : enregistrement, mises à jour et vérifications.
+
+## `GET /api/v1/account`
+Récupère les informations du compte de l'utilisateur actuellement authentifié.
+
+## `PUT /api/v1/account`
+Met à jour les détails du compte utilisateur.
+
+### Exemple de Requête
+```json
+{
+  "login": "utilisateur@exemple.com",
+  "langKey": "fr",
+  "account": {
+    "firstname": "Jean",
+    "lastname": "Dupont",
+    "country": "France",
+    "city": "Paris",
+    "address": "123 Rue Principale",
+    "zipCode": "75001",
+    "companyName": "Exemple SARL",
+    "companyReference": "EX123",
+    "companyDescription": "Une entreprise technologique",
+    "storeName": "Magasin Exemple",
+    "gender": "M"
+  }
+}
+```
+
+## `POST /api/v1/account/register`
+Enregistre un nouveau compte utilisateur.
+
+## `POST /api/v1/account/change-password`
+Change le mot de passe de l'utilisateur.
+
+## `POST /api/v1/account/reset-password/init`
+Commence le processus de réinitialisation du mot de passe.
+
+## `POST /api/v1/account/reset-password/finish`
+Finalise la réinitialisation du mot de passe à l'aide d'une clé de récupération.
+
+## Vérification de l'e-mail et du téléphone
+
+- `POST /api/v1/account/verify/email/init`
+- `GET /api/v1/account/verify/email/finish`
+- `POST /api/v1/account/verify/phone-number/init`
+- `GET /api/v1/account/verify/phone-number/finish`
+- `GET /api/v1/account/email/verified`
+- `GET /api/v1/account/phone-number/verified`
+
+## `GET /api/v1/account/activate`
+Active un compte à l'aide d'une clé de vérification.
+
+**Paramètres de requête :**
+- `key` : clé d'activation
+- `notifyBy` : `SMS`, `EMAIL`, ou `EMAIL_AND_SMS`
+
+---
+
+## `POST /api/v1/account/profile/file`
+Téléverse un fichier de profil.
+
+## `GET /api/v1/account/profile/file/{filename}`
+Télécharge un fichier de profil précédemment téléversé.

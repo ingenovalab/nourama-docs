@@ -1,0 +1,82 @@
+---
+title: Authentification
+sidebar\_position: 1
+---
+
+# API d'Authentification
+
+Ces points de terminaison permettent la connexion de l'utilisateur, la vérification de session et la validation OTP (mot de passe à usage unique).
+
+## `POST /api/v1/authenticate`
+
+Authentifie un utilisateur en utilisant son nom d'utilisateur et mot de passe.
+
+### Corps de la Requête
+
+```json
+{
+  "username": "utilisateur@exemple.com",
+  "password": "string",
+  "rememberMe": true
+}
+```
+
+### Réponse
+
+```json
+{
+  "message": "OK",
+  "body": {
+    "id_token": "jeton-jwt"
+  }
+}
+```
+
+### Exemple
+
+```bash
+curl -X POST https://api.nourama.com/api/v1/authenticate \
+  -H "Content-Type: application/json" \
+  -d '{"username": "utilisateur@exemple.com", "password": "motdepasse"}'
+```
+
+---
+
+## `POST /api/v1/authenticate/init`
+
+Initie la connexion et retourne les méthodes OTP disponibles.
+
+## `POST /api/v1/authenticate/receive-otp`
+
+Envoie un code OTP à l'utilisateur.
+
+### Corps de la Requête
+
+```json
+{
+  "login": "utilisateur@exemple.com",
+  "method": "EMAIL_AND_SMS"
+}
+```
+
+## `POST /api/v1/authenticate/verify-otp`
+
+Vérifie le code OTP et retourne un jeton JWT.
+
+### Corps de la Requête
+
+```json
+{
+  "login": "utilisateur@exemple.com",
+  "password": 123456,
+  "rememberMe": true
+}
+```
+
+## `GET /api/v1/authenticate`
+
+Vérifie si la session actuelle est authentifiée.
+
+## `GET /api/v1/logout`
+
+Déconnecte la session actuelle.

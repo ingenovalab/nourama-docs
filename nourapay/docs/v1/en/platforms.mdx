@@ -1,0 +1,59 @@
+---
+title : Gestion des plateformes
+sidebar_position : 3
+---
+
+# Gestion des plateformes
+
+Gérer les plateformes pour les utilisateurs, y compris la création, la gestion des images et les demandes de solde.
+
+## `POST /api/v1/plateforme`
+
+Crée une nouvelle plateforme.
+
+### Corps de la requête
+
+```json
+{
+  "name": "MyPlatform",
+  "url": "https://myplatform.com",
+  "description": "An online service",
+  "metaData": "optional metadata"
+}
+```
+
+## `GET /api/v1/plateformes`
+
+Récupère toutes les plateformes accessibles par l'utilisateur (paginé).
+
+### Paramètres de la requête
+
+* `page` : nombre
+* `size` : nombre
+* `sort` : `field,asc|desc`
+
+## `GET /api/v1/plateforme/by-slug/{slug}`
+
+Obtient les détails de la plateforme par son nom.
+
+## `GET /api/v1/platform/balance/by-slug/{slug}`
+
+Récupère la balance associée à la plateforme spécifiée.
+
+## `GET /api/v1/platform/apikey/by-slug/{slug}`
+
+Récupère la clé/le jeton API d'une plateforme.
+
+## Images de la plateforme
+
+### `POST /api/v1/platform/image/by-slug/{slug}`
+
+Télécharge ou met à jour l'image/logo de la plateforme.
+
+### `GET /api/v1/platform/image/by-slug/{fileSlug}`
+
+Télécharge le logo ou le fichier image par balise.
+
+---
+
+Utilisez cette section pour intégrer et gérer les fonctionnalités liées à la plate-forme dans votre application.
